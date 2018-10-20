@@ -3,6 +3,6 @@ import sys
 for line in sys.stdin:
 	line = line.strip()
 	words = line.split()
-	print 'lc', 1
+	print 'line'
 	for word in words:
-		print 'wc', 1
+		print 'word'
