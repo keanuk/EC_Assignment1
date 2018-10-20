@@ -4,8 +4,6 @@ prev_key = None
 lc = 0
 wc = 0
 
-print "input: ", sys.stdin
-
 for line in sys.stdin:
 
     line = line.strip()
