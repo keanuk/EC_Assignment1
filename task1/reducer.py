@@ -1,0 +1,22 @@
+import sys
+
+prev_key = None 
+lc = 0
+wc = 0
+
+print "input: ", sys.stdin
+
+for line in sys.stdin:
+
+    line = line.strip()
+
+    if line == 'word':
+        wc += 1
+
+    elif line == 'line':
+        lc += 1
+    
+    else:
+        print "How did that get in there?"
+
+print wc, lc
