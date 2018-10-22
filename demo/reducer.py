@@ -1,27 +1,24 @@
-#!/usr/bin/env python2
+#!/usr/bin/python2.7
+# memory-efficient_reducer.py
 import sys
 
-def reduce_function(word, values):
-    # Calculate how many times each word was encountered 
-    return word, sum(values)                        
- 
-prev_key = None 
-values = [] 
- 
-for line in sys.stdin: 
-    # Parse key and value
-    key, value = line.strip().split('\t')                                   
+prev_word = None
+value_total = 0
 
-     # If key has changed then one can finish processing the previoos key
-    if key != prev_key and prev_key is not None:
-        result_key, result_value = reduce_function(prev_key, values)
-        print(result_key + "\t" + str(result_value)) 
-        values = [] 
+for line in sys.stdin:          # For ever line in the input from stdin
+    line = line.strip()         # Remove trailing characters
+    word, value = line.split("\t", 1)
+    value = int(value)
 
-    prev_key = key 
-    values.append(int(value)) 
+    # Remember that Hadoop sorts mapper output by key, and the reducer takes these keys sorted
+    if prev_word == word:
+        value_total += value
+    else:
+        if prev_word != None:  # Write result to stdout
+            print("{0}\t{1}".format(prev_word, value_total))
+            
+        value_total = value
+        prev_word = word
 
-# Don't forget about the last value!
-if prev_key is not None: 
-    result_key, result_value = reduce_function(prev_key, values) 
-    print(result_key + "\t" + str(result_value))
+if prev_word == word:  # Don't forget the last key/value pair
+    print("{0}\t{1}".format(prev_word, value_total))

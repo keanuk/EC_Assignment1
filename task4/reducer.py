@@ -1,10 +1,10 @@
 #!/usr/bin/env python2
 import sys
 
-actCount = 0
+prev_key = None
 
 for line in sys.stdin:
     key, value = line.split('\t')
-    actCount += int(value)
-
-print 'act\t', actCount
+    if key != prev_key:
+        print key
+    prev_key = key

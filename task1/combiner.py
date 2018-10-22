@@ -1,21 +1,15 @@
 #!/usr/bin/python2.7
 import sys
 
-prev_key = None 
 lc = 0
 wc = 0
 
 for line in sys.stdin:
+    key, value = line.strip().split('\t')
+    if key == 'word':
+        wc += int(value)
+    elif key == 'line':
+        lc += int(value)
 
-    line = line.strip()
-
-    if line == 'word':
-        wc += 1
-
-    elif line == 'line':
-        lc += 1
-    
-    else:
-        print "How did that get in there?"
-
-print wc, lc
+print 'line\t', lc
+print 'word\t', wc
