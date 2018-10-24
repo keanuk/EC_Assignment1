@@ -5,7 +5,7 @@ hdfs dfs -rm -r $OUTPUT_DIR
 
 hadoop jar /opt/hadoop/hadoop-2.9.1/share/hadoop/tools/lib/hadoop-streaming-2.9.1.jar \
   -D mapreduce.job.name=${USER}_task7 \
-  -input /data/small/imdb/title.basics.tsv \
+  -input /data/small/imdb/title.crew.tsv \
   -output $OUTPUT_DIR \
   -mapper mapper.py \
   -combiner combiner.py \
