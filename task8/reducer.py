@@ -7,6 +7,9 @@ prevVal = None
 for line in sys.stdin:
     key, value = line.strip().split('\t')
     if key == prevKey:
-        print prevVal, '\t', value
+        if '.' in value:
+            print prevVal, '\t', value
+        else:
+            print value, '\t', prevVal
     prevKey = key
     prevVal = value
