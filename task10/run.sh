@@ -1,10 +1,11 @@
-OUTPUT_DIR=/user/${USER}/tasks/7
+OUTPUT_DIR=/user/${USER}/tasks/10
 OUTPUT_FILE=output.out
 
 hdfs dfs -rm -r $OUTPUT_DIR
 
 hadoop jar /opt/hadoop/hadoop-2.9.1/share/hadoop/tools/lib/hadoop-streaming-2.9.1.jar \
-  -D mapreduce.job.name=${USER}_task7 \
+  -D mapreduce.job.name=${USER}_task10 \
+  -D mapred.reduce.tasks=1 \
   -input /data/small/imdb/title.basics.tsv \
   -output $OUTPUT_DIR \
   -mapper mapper.py \
@@ -14,5 +15,5 @@ hadoop jar /opt/hadoop/hadoop-2.9.1/share/hadoop/tools/lib/hadoop-streaming-2.9.
   -file combiner.py \
   -file reducer.py
 
-hdfs dfs -cat ${OUTPUT_DIR}/part-* | head -n 20 > $OUTPUT_FILE
+hdfs dfs -cat ${OUTPUT_DIR}/part-* > $OUTPUT_FILE
 cat $OUTPUT_FILE
